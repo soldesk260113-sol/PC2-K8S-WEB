@@ -17,12 +17,3 @@ spec:
             port:
               number: 80
 
-      # API (나중에 Pod 살아나면 자동 연결)
-      - path: /api
-        pathType: Prefix
-        backend:
-          service:
-            name: api-svc
-            port:
-              number: 3000
-

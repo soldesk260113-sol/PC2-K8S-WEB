@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kma-api
+  namespace: team2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kma-api
+  template:
+    metadata:
+      labels:
+        app: kma-api
+    spec:
+      containers:
+      - name: kma-api
+        image: 10.2.2.40:5000/library/kma-api:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - secretRef:
+            name: kma-api-env
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: energy-api
+  namespace: team2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: energy-api
+  template:
+    metadata:
+      labels:
+        app: energy-api
+    spec:
+      containers:
+      - name: energy-api
+        image: 10.2.2.40:5000/library/energy-api:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - secretRef:
+            name: energy-api-env
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: map-api
+  namespace: team2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: map-api
+  template:
+    metadata:
+      labels:
+        app: map-api
+    spec:
+      containers:
+      - name: map-api
+        image: 10.2.2.40:5000/library/map-api:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        env:
+        - name: NAVER_MAP_CLIENT_ID
+          valueFrom:
+            configMapKeyRef:
+              name: map-web-config
+              key: NAVER_MAP_CLIENT_ID
+

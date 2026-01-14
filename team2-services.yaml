@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kma-api
+  namespace: team2
+spec:
+  selector:
+    app: kma-api
+  ports:
+  - name: http
+    port: 8000
+    targetPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: energy-api
+  namespace: team2
+spec:
+  selector:
+    app: energy-api
+  ports:
+  - name: http
+    port: 8000
+    targetPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: map-api
+  namespace: team2
+spec:
+  selector:
+    app: map-api
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+
